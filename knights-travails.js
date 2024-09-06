@@ -45,4 +45,47 @@
 
 // 3. I will use a Set of "visited nodes" to make sure I am not visiting nodes I have visited before. Before visiting and exploring a node, I will check if that node exists in the Set. If it does, I can move on. If not, I will visit and explore the node.
 
-console.log("Hello, knights travails!");
+// console.log("Hello, knights travails!");
+
+const whoIsMyDad = new Map();
+
+let child = { name: "baby" };
+
+let parent = { name: "dad" };
+
+whoIsMyDad.set(child, parent);
+
+console.log(whoIsMyDad.get(child));
+
+let grandparent = { name: "grandpa" };
+
+let greatGrandparent = { name: "great grandpa" };
+
+whoIsMyDad.set(parent, grandparent);
+
+whoIsMyDad.set(grandparent, greatGrandparent);
+
+console.log(whoIsMyDad);
+
+console.log(`
+
+
+┌─────────────────────┐
+│                     │
+│     Let's print     │
+│                     │
+└─────────────────────┘
+
+`);
+
+let current = child;
+let filepath = [];
+
+while (current !== greatGrandparent) {
+  filepath.unshift(current);
+  current = whoIsMyDad.get(current);
+}
+
+filepath.unshift(greatGrandparent);
+
+console.log(filepath);
