@@ -147,20 +147,20 @@ chessGraph.findFastestPath([0, 0], [1, 2]);
 // 3. Build path from starting node to destination node using dictionary
 // 4. Return the full path
 
-let testJSON = [0, 0];
+const testMap = new Map();
 
-console.log(typeof testJSON);
-console.log(testJSON);
-console.log("");
+testMap.set("child", "parent");
 
-let stringJSON = JSON.stringify(testJSON);
+testMap.set("parent", "grandparent");
 
-console.log(typeof stringJSON);
-console.log(stringJSON);
-console.log("");
+testMap.set("grandparent", null);
 
-let parseJSON = JSON.parse(stringJSON);
+let current = "child";
+let arr = [];
 
-console.log(typeof parseJSON);
-console.log(parseJSON);
-console.log("");
+while (current !== null) {
+  arr.unshift(current);
+  current = testMap.get(current);
+}
+
+console.log(arr);
