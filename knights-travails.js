@@ -45,8 +45,6 @@
 
 // 3. I will use the same Map to keep track of "visited nodes" to make sure I am not visiting nodes I have visited before. Before visiting and exploring a node, I will check if that node exists in the Map. If it does, I can move on. If not, I will visit and explore the node.
 
-// console.log("Hello, knights travails!");
-
 // Build an example Table and an Adjacent Set
 
 const chessBoard = [];
@@ -65,6 +63,7 @@ class Graph {
   constructor() {
     this.adjacencyList = new Map();
     this.buildGraph();
+    this.dictionary = new Map();
   }
 
   addNode(node, related) {
@@ -106,8 +105,10 @@ class Graph {
       }
     }
   }
+
+  addToDictionary(node, parent) {
+    this.dictionary.set(node, parent);
+  }
 }
 
 const chessGraph = new Graph();
-
-console.log(chessGraph.adjacencyList);
