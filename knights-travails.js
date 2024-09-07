@@ -61,14 +61,30 @@ for (let i = 0; i < 8; i++) {
 
 console.table(chessBoard);
 
-console.log(chessBoard[0][1]);
-
 class Graph {
   constructor() {
     this.adjacencyList = new Map();
+  }
+
+  addNode(node, related) {
+    this.adjacencyList.set(JSON.stringify(node), related);
+  }
+
+  getRelated(node) {
+    return this.adjacencyList.get(JSON.stringify(node));
   }
 }
 
 const chessGraph = new Graph();
 
+chessGraph.addNode(
+  [0, 0],
+  [
+    [2, 1],
+    [1, 2],
+  ]
+);
+
 console.log(chessGraph.adjacencyList);
+
+console.log(chessGraph.getRelated([0, 0]));
