@@ -73,18 +73,34 @@ class Graph {
   getRelated(node) {
     return this.adjacencyList.get(JSON.stringify(node));
   }
+
+  getKnightMoves(node) {
+    let possibleChanges = [
+      [-2, 1],
+      [-1, 2],
+      [2, 1],
+      [1, 2],
+      [2, -1],
+      [1, -2],
+      [-2, -1],
+      [-1, -2],
+    ];
+
+    let possibleMoves = possibleChanges.map(([dx, dy]) => [
+      node[0] + dx,
+      node[1] + dy,
+    ]);
+
+    let possibleLegalMoves = possibleMoves.filter(
+      (item) => item[0] >= 0 && item[0] <= 7 && item[1] >= 0 && item[1] <= 7
+    );
+
+    return possibleLegalMoves;
+  }
 }
 
 const chessGraph = new Graph();
 
-chessGraph.addNode(
-  [0, 0],
-  [
-    [2, 1],
-    [1, 2],
-  ]
-);
-
 console.log(chessGraph.adjacencyList);
 
-console.log(chessGraph.getRelated([0, 0]));
+console.log(chessGraph.getKnightMoves([0, 0]));
