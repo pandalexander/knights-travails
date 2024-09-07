@@ -89,3 +89,7 @@ while (current !== greatGrandparent) {
 filepath.unshift(greatGrandparent);
 
 console.log(filepath);
+
+whoIsMyDad.set("Hehe", "Hehe Parent");
+
+console.log(whoIsMyDad.has("haha"));
