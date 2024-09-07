@@ -63,7 +63,6 @@ class Graph {
   constructor() {
     this.adjacencyList = new Map();
     this.buildGraph();
-    this.dictionary = new Map();
   }
 
   addNode(node, related) {
@@ -106,9 +105,62 @@ class Graph {
     }
   }
 
-  addToDictionary(node, parent) {
-    this.dictionary.set(node, parent);
+  findFastestPath(startNode, destinationNode) {
+    let dictionary = new Map();
+    function addToDictionary(node, parent) {
+      dictionary.set(node, parent);
+    }
+
+    let queue = [];
+    queue.push(startNode);
+    addToDictionary(JSON.stringify(startNode), null);
+    let found = false;
+
+    do {
+      let current = queue.shift();
+
+      if (JSON.stringify(current) === JSON.stringify(destinationNode)) {
+        found = true;
+        console.log(current);
+        return current;
+      }
+
+      let currentRelatedArray = this.getRelated(current);
+
+      currentRelatedArray.forEach((element) => {
+        if (!dictionary.has(JSON.stringify(element))) {
+          queue.push(element);
+          dictionary.set(JSON.stringify(element), JSON.stringify(current));
+        }
+      });
+    } while (!found);
   }
 }
 
 const chessGraph = new Graph();
+
+chessGraph.findFastestPath([0, 0], [1, 2]);
+
+// How to build a BFS (breadth first search) to find the path:
+// 1. Handle input parameter of starting node
+// 2. Find destination node
+// 3. Build path from starting node to destination node using dictionary
+// 4. Return the full path
+
+let testJSON = [0, 0];
+
+console.log(typeof testJSON);
+console.log(testJSON);
+console.log("");
+
+let stringJSON = JSON.stringify(testJSON);
+
+console.log(typeof stringJSON);
+console.log(stringJSON);
+console.log("");
+
+let parseJSON = JSON.parse(stringJSON);
+
+console.log(typeof parseJSON);
+console.log(parseJSON);
+console.log("");
