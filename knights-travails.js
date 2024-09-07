@@ -64,6 +64,7 @@ console.table(chessBoard);
 class Graph {
   constructor() {
     this.adjacencyList = new Map();
+    this.buildGraph();
   }
 
   addNode(node, related) {
@@ -97,10 +98,16 @@ class Graph {
 
     return possibleLegalMoves;
   }
+
+  buildGraph() {
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        this.addNode([i, j], this.getKnightMoves([i, j]));
+      }
+    }
+  }
 }
 
 const chessGraph = new Graph();
 
 console.log(chessGraph.adjacencyList);
-
-console.log(chessGraph.getKnightMoves([0, 0]));
