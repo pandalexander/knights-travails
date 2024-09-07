@@ -43,53 +43,32 @@
 
 // When I find my destination node, I will trace the path using the dictionary. The dictionary will be a Map.
 
-// 3. I will use a Set of "visited nodes" to make sure I am not visiting nodes I have visited before. Before visiting and exploring a node, I will check if that node exists in the Set. If it does, I can move on. If not, I will visit and explore the node.
+// 3. I will use the same Map to keep track of "visited nodes" to make sure I am not visiting nodes I have visited before. Before visiting and exploring a node, I will check if that node exists in the Map. If it does, I can move on. If not, I will visit and explore the node.
 
 // console.log("Hello, knights travails!");
 
-const whoIsMyDad = new Map();
+// Build an example Table and an Adjacent Set
 
-let child = { name: "baby" };
+const chessBoard = [];
 
-let parent = { name: "dad" };
-
-whoIsMyDad.set(child, parent);
-
-console.log(whoIsMyDad.get(child));
-
-let grandparent = { name: "grandpa" };
-
-let greatGrandparent = { name: "great grandpa" };
-
-whoIsMyDad.set(parent, grandparent);
-
-whoIsMyDad.set(grandparent, greatGrandparent);
-
-console.log(whoIsMyDad);
-
-console.log(`
-
-
-┌─────────────────────┐
-│                     │
-│     Let's print     │
-│                     │
-└─────────────────────┘
-
-`);
-
-let current = child;
-let filepath = [];
-
-while (current !== greatGrandparent) {
-  filepath.unshift(current);
-  current = whoIsMyDad.get(current);
+for (let i = 0; i < 8; i++) {
+  let newRow = [];
+  for (let j = 0; j < 8; j++) {
+    newRow.push([i, j]);
+  }
+  chessBoard.push(newRow);
 }
 
-filepath.unshift(greatGrandparent);
+console.table(chessBoard);
 
-console.log(filepath);
+console.log(chessBoard[0][1]);
 
-whoIsMyDad.set("Hehe", "Hehe Parent");
+class Graph {
+  constructor() {
+    this.adjacencyList = new Map();
+  }
+}
 
-console.log(whoIsMyDad.has("haha"));
+const chessGraph = new Graph();
+
+console.log(chessGraph.adjacencyList);
