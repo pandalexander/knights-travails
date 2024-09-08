@@ -107,30 +107,35 @@ class Graph {
 
   findFastestPath(startNode, destinationNode) {
     let dictionary = new Map();
-    function addToDictionary(node, parent) {
-      dictionary.set(node, parent);
-    }
 
     let queue = [];
     queue.push(startNode);
-    addToDictionary(JSON.stringify(startNode), null);
+    dictionary.set(startNode.toString(), null);
     let found = false;
 
     do {
       let current = queue.shift();
 
-      if (JSON.stringify(current) === JSON.stringify(destinationNode)) {
+      if (current.toString() === destinationNode.toString()) {
         found = true;
-        console.log(current);
-        return current;
+
+        let arr = [];
+
+        while (current !== null) {
+          let newArr = current.toString().split(",");
+          let stringArr = newArr.map((element) => Number(element));
+          arr.unshift(stringArr);
+          current = dictionary.get(current.toString());
+        }
+        return arr;
       }
 
       let currentRelatedArray = this.getRelated(current);
 
       currentRelatedArray.forEach((element) => {
-        if (!dictionary.has(JSON.stringify(element))) {
+        if (!dictionary.has(element.toString())) {
           queue.push(element);
-          dictionary.set(JSON.stringify(element), JSON.stringify(current));
+          dictionary.set(element.toString(), current.toString());
         }
       });
     } while (!found);
@@ -139,30 +144,4 @@ class Graph {
 
 const chessGraph = new Graph();
 
-chessGraph.findFastestPath([0, 0], [1, 2]);
-
-// How to build a BFS (breadth first search) to find the path:
-// 1. Handle input parameter of starting node
-// 2. Find destination node
-// 3. Build path from starting node to destination node using dictionary
-// 4. Return the full path
-
-// This is an example of how I will return the path:
-
-const testMap = new Map();
-
-testMap.set("[0,0]", "[1,0]");
-
-testMap.set("[1,0]", "[2,0]");
-
-testMap.set("[2,0]", null);
-
-let current = "[0,0]";
-let arr = [];
-
-while (current !== null) {
-  arr.unshift(JSON.parse(current));
-  current = testMap.get(current);
-}
-
-console.log(arr);
+console.log(chessGraph.findFastestPath([0, 0], [7, 6]));
