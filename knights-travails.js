@@ -147,19 +147,21 @@ chessGraph.findFastestPath([0, 0], [1, 2]);
 // 3. Build path from starting node to destination node using dictionary
 // 4. Return the full path
 
+// This is an example of how I will return the path:
+
 const testMap = new Map();
 
-testMap.set("child", "parent");
+testMap.set("[0,0]", "[1,0]");
 
-testMap.set("parent", "grandparent");
+testMap.set("[1,0]", "[2,0]");
 
-testMap.set("grandparent", null);
+testMap.set("[2,0]", null);
 
-let current = "child";
+let current = "[0,0]";
 let arr = [];
 
 while (current !== null) {
-  arr.unshift(current);
+  arr.unshift(JSON.parse(current));
   current = testMap.get(current);
 }
 
