@@ -105,7 +105,7 @@ class Graph {
     }
   }
 
-  findFastestPath(startNode, destinationNode) {
+  knightMoves(startNode, destinationNode) {
     let dictionary = new Map();
 
     let queue = [];
@@ -144,4 +144,4 @@ class Graph {
 
 const chessGraph = new Graph();
 
-console.log(chessGraph.findFastestPath([0, 0], [7, 6]));
+console.log(chessGraph.knightMoves([0, 0], [7, 6]));
